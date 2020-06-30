@@ -9,11 +9,15 @@ var answers = ["alerts", "quotes", "all of the above", "console.log", "parenthes
 
 var button = document.querySelector("#quiz-start");
 var main = document.querySelector(".main")
+var header = document.querySelector("h1");
+var answerOptions = document.querySelector("ul")
 
 //Function that goes from one question to another
 //function that starts timer in the top right corner
 //on click function for the Start quiz button that creates first question, starts timer, 
+//add click event on all of main
 
 button.addEventListener("click", function(){
-    main.textContent = " ";
+    header.textContent = questions[0];
+    
 })
