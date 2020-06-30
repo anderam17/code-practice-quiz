@@ -5,38 +5,32 @@ questions[0] = {
     choices: ["Strings", "Booleans", "Alerts", "Numbers"],
     correctAnswer: 3,
 };
-
 questions[1] = {
     question: "String values must be enclosed within _______ when being assigned to variables.",
     choices: ["Commas", "Curly Brackets", "Quotes", "Parentheses"],
     correctAnswer: 3,
 };
-
 questions[2] = {
     question: "Arrays in JavaScript can be used to store _______.",
     choices: ["Numbers and Strings", "Other Arrays", "Booleans", "All of the Above"],
     correctAnswer: 4,
 };
-
 questions[3] = {
     question: "A very useful tool used during development and debugging for printing content to the debugger is:",
     choices: ["JavaScript", "Terminal/Bash", "For Loops", "Console.log"],
     correctAnswer: 4,
 }
-
 questions[4] = {
     question: "The condition in an if/else statement is enclosed within ________",
     choices: ["Quotes", "Curly Brackets", "Parentheses", "Square Brackets"],
     correctAnswer: 3,
 }
 
-var answers = ["alerts", "quotes", "all of the above", "console.log", "parentheses"]
-
 var button = document.querySelector("#quiz-start");
 var timer = document.querySelector(".timer");
 var main = document.querySelector(".main")
-var header = document.querySelector("h1");
-var answerOptions = document.querySelector("ul")
+var header = document.querySelector("#question");
+var answerOptions = document.querySelector("ol")
 var paragraph = document.body.querySelector("p");
 
 var secondsLeft = 60;
@@ -61,13 +55,19 @@ button.addEventListener("click", function(){
         }
 
     }, 1000)
-    paragraph.textContent= "";
-    header.textContent = questions[0];
-    var li= document.createElement("li");
-    li.innerHTML = questions[0];
-    answerOptions.appendChild(li);
+    
+    //! This is important and well done (if I do say so myself). Need to repeat this for each quetion. Make it's own method?
+    header.textContent = questions[1].question;
+    choicesCreator(1);
 })
 
+function choicesCreator(arrayIndex){
+    for(var i=0; i<4; i++){
+        var listItem = document.createElement("li");
+        listItem.textContent = questions[arrayIndex].choices[i];
+        answerOptions.appendChild(listItem);
+    }
+}
 
 
 
