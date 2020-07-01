@@ -44,7 +44,6 @@ function checkAnswer(arrayIndex, event){
         }else{
             secondsLeft-=10;
         }
-
     }
     
     function choicesCreator(arrayIndex){
@@ -55,13 +54,23 @@ function checkAnswer(arrayIndex, event){
             listItem.textContent = questions[arrayIndex].choices[i];
             answerChoices.appendChild(listItem);
         }
-        
     }
     
     //Creates a question with the respective list of answer choices by pulling from the questions array
     function createQuestion(arrayIndex){
         header.textContent = questions[arrayIndex].question;
         choicesCreator(arrayIndex);
+    }
+
+    function endQuiz() {
+        answerChoices.setAttribute("style", "display: none");
+        header.textContent = "All done!"
+        paragraph.setAttribute("style", "display: flex");
+        paragraph.textContent = "Your final score is " + userScore; //Need to add up score
+        
+        //! Start here tomorrow
+        //! var initialsInput = document.createElement("form");
+
     }
     
 
@@ -77,10 +86,7 @@ function checkAnswer(arrayIndex, event){
             
             if(secondsLeft === 0 || currentQuestion === 5){
                 clearInterval(timeInterval);
-                answerChoices.setAttribute("style", "display: none");
-                header.textContent = "All done!"
-                paragraph.setAttribute("style", "display: flex");
-                paragraph.textContent = "Your final score is " + userScore; //Need to add up score
+                endQuiz();
             }
             
         }, 1000)
@@ -95,4 +101,11 @@ function checkAnswer(arrayIndex, event){
 
 
 
-//!need to also go to screen that tells you your score    
+//todo: create form for user to enter initials
+//todo: save initials in local storage
+//todo: create buttons to submit initials
+//todo: list of highscores
+//todo: button to clear list of highscores or go back to beginning
+//todo: alerts when you get one right or wrong
+
+//todo: comments, readME, make prettier
