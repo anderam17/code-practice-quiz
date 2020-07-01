@@ -10,3 +10,9 @@ header{
     display: flex;
     justify-content: space-between;
 }
+
+#question {
+    display: flex;
+    justify-content: center;
+    width: 60%;
+}
