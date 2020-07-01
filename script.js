@@ -45,21 +45,6 @@ function checkAnswer(arrayIndex, event){
             secondsLeft-=10;
         }
 
-//      answerOptions.addEventListener("click", function(event){
-//         if (currentQuestion === 4 || secondsLeft === 0){
-//             console.log("done");    //check if this works
-//             console.log(currentQuestion);
-
-//         } else if (event.target === questions[arrayIndex].correctAnswer)
-//         userScore++;
-//         //alert that they got it right
-//         // else{
-//             //     //alert that they got it wrong
-//             // }
-
-//             createQuestion(currentQuestion)
-//         })
-
     }
     
     function choicesCreator(arrayIndex){
@@ -90,11 +75,13 @@ function checkAnswer(arrayIndex, event){
             secondsLeft--;
             timer.textContent = "Timer: " + secondsLeft;
             
-        //     if(secondsLeft === 0){
-        //         clearInterval(timeInterval);
-        //         header.textContent = "All done!"
-        //         paragraph.textContent = "Your final score is "  //Need to add up score
-        //     }
+            if(secondsLeft === 0 || currentQuestion === 5){
+                clearInterval(timeInterval);
+                answerChoices.setAttribute("style", "display: none");
+                header.textContent = "All done!"
+                paragraph.setAttribute("style", "display: flex");
+                paragraph.textContent = "Your final score is " + userScore; //Need to add up score
+            }
             
         }, 1000)
     })
@@ -104,18 +91,8 @@ function checkAnswer(arrayIndex, event){
         createQuestion(currentQuestion);
     })
     
-//     for(var i=0; i<questions.length; i++){
-//         checkAnswer(i);
-//         currentQuestion++;
-//         console.log(userScore);    //check if it's tracking score
-//     }
 
-// //Function that goes from one question to another
-// //add click event on ordered list
-// //Need to solidify the change from welcome screen to first question
-// //get rid of start quiz button
 
-// //!need to also go to screen that tells you your score    
-// //!need another if statement that checks if they got it wrong and takes away 10 seconds
-// //!For some reason there is a delay before the timer starts
-// //! Cannot get rid of paragraph for some reason
+
+
+//!need to also go to screen that tells you your score    
