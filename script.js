@@ -37,13 +37,12 @@ var answerChoices = document.querySelector("ol")
 var paragraph = document.querySelector("#intro");
 
 
-function checkAnswer(arrayIndex, event){
-        console.log(event.target);   
-        console.log(questions[arrayIndex].correctAnswer);    
+function checkAnswer(arrayIndex, event){    
     if(event.target.textContent === questions[arrayIndex].correctAnswer){
-            console.log("Yes");
+            userScore+=20;
+            console.log(userScore);
         }else{
-            console.log("No");
+            secondsLeft-=10;
         }
 
 //      answerOptions.addEventListener("click", function(event){
