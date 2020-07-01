@@ -37,8 +37,16 @@ var answerChoices = document.querySelector("ol")
 var paragraph = document.querySelector("#intro");
 
 
-// function checkAnswer(arrayIndex){
-//     answerOptions.addEventListener("click", function(event){
+function checkAnswer(arrayIndex, event){
+        console.log(event.target);   
+        console.log(questions[arrayIndex].correctAnswer);    
+    if(event.target.textContent === questions[arrayIndex].correctAnswer){
+            console.log("Yes");
+        }else{
+            console.log("No");
+        }
+
+//      answerOptions.addEventListener("click", function(event){
 //         if (currentQuestion === 4 || secondsLeft === 0){
 //             console.log("done");    //check if this works
 //             console.log(currentQuestion);
@@ -53,19 +61,20 @@ var paragraph = document.querySelector("#intro");
 //             createQuestion(currentQuestion)
 //         })
 
-//     }
+    }
     
     function choicesCreator(arrayIndex){
+        //clears out previous answer choices so that there are only 4 showing at a time
         answerChoices.textContent = "";
         for(var i=0; i<4; i++){
             var listItem = document.createElement("li");
             listItem.textContent = questions[arrayIndex].choices[i];
             answerChoices.appendChild(listItem);
         }
-        currentQuestion++;
+        
     }
     
-//     //Creates a full question by pulling from the questions array using the passed array index
+    //Creates a question with the respective list of answer choices by pulling from the questions array
     function createQuestion(arrayIndex){
         header.textContent = questions[arrayIndex].question;
         choicesCreator(arrayIndex);
@@ -78,9 +87,9 @@ var paragraph = document.querySelector("#intro");
         button.setAttribute("style", "display: none");
         paragraph.setAttribute("style", "display: none");
         
-        // var timeInterval = setInterval(function(){
-        //     secondsLeft--;
-        //     timer.textContent = "Timer: " + secondsLeft;
+        var timeInterval = setInterval(function(){
+            secondsLeft--;
+            timer.textContent = "Timer: " + secondsLeft;
             
         //     if(secondsLeft === 0){
         //         clearInterval(timeInterval);
@@ -88,9 +97,11 @@ var paragraph = document.querySelector("#intro");
         //         paragraph.textContent = "Your final score is "  //Need to add up score
         //     }
             
-        // }, 1000)
+        }, 1000)
     })
-    answerChoices.addEventListener("click", function(){
+    answerChoices.addEventListener("click", function(event){
+        checkAnswer(currentQuestion, event);
+        currentQuestion++;
         createQuestion(currentQuestion);
     })
     
