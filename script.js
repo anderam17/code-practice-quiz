@@ -3,6 +3,7 @@ var userScore = 0;
 var currentQuestion = 0;
 var secondsLeft = 60;
 
+//adding data to the above questions aray in the form of objects
 questions[0] = {
     question: "Commonly used data types DO NOT include:",
     choices: ["Strings", "Booleans", "Alerts", "Numbers"],
@@ -29,6 +30,7 @@ questions[4] = {
     correctAnswer: "Parentheses",
 }
 
+//variables that save targeted html elements.
 var button = document.querySelector("#quiz-start");
 var timer = document.querySelector(".timer");
 var main = document.querySelector(".main")
@@ -36,7 +38,9 @@ var header = document.querySelector("#question");
 var answerChoices = document.querySelector("ol")
 var paragraph = document.querySelector("#intro");
 
-
+//compares user answer to correct answer by looking at target of click event and answer attribute of question array.
+//if the user is correct, 20 points are added to their score. 
+//if the user is incorrect, 10 seconds are taken away from the timer.
 function checkAnswer(arrayIndex, event){    
     if(event.target.textContent === questions[arrayIndex].correctAnswer){
             userScore+=20;
@@ -46,6 +50,8 @@ function checkAnswer(arrayIndex, event){
         }
     }
     
+    //clears out previous answer choice, pulls information 
+    //for next one from array, and appends them to the page.
     function choicesCreator(arrayIndex){
         //clears out previous answer choices so that there are only 4 showing at a time
         answerChoices.textContent = "";
@@ -67,14 +73,56 @@ function checkAnswer(arrayIndex, event){
         header.textContent = "All done!"
         paragraph.setAttribute("style", "display: flex");
         paragraph.textContent = "Your final score is " + userScore; //Need to add up score
-        
-        //! Start here tomorrow
-        //! var initialsInput = document.createElement("form");
+
+        //creates form for users to input initials.
+        var initialsInput = document.createElement("input");
+        main.append(initialsInput);
+
+        //creates button to submit user initials.
+        var initialsBtn = document.createElement("button");
+        initialsBtn.textContent = "Submit";
+        main.append(initialsBtn);
+
+        var clearBtn = document.createElement("button");
+        clearBtn.textContent = "Clear Scores";
+        main.append(clearBtn);
+
+        //saves user input to local storage
+        initialsBtn.onclick = function(){
+            var initialsValue = initialsInput.value.trim();
+            var newScore = {
+                score: userScore,
+                initials: initialsValue, 
+            }
+            var scoresList = JSON.parse(window.localStorage.getItem("highscores")) || [];
+            scoresList.push(newScore);
+            window.localStorage.setItem("highscores", JSON.stringify(scoresList));
+            var please = highscoresList();
+        }
+
+        clearBtn.onclick = function(){
+            localStorage.clear();
+            please.textContent = "";
+        }
+    }
+
+    //prints out list of high scores from local storage. 
+    function highscoresList(){
+        var scoresList = JSON.parse(window.localStorage.getItem("highscores")) || [];
+        scoresList.sort(function(a, b){
+            return b.score - a.score;
+        })
+        scoresList.forEach(function(score){
+            var list = document.createElement("div");
+            list.textContent = score.initials + "-" + score.score;
+            main.appendChild(list);
+            return list;
+        });
 
     }
     
 
-    //This is where actual actions start
+    //This button clears off the introductory page and starts the quiz
     button.addEventListener("click", function(){
         createQuestion(0);
         button.setAttribute("style", "display: none");
@@ -91,6 +139,8 @@ function checkAnswer(arrayIndex, event){
             
         }, 1000)
     })
+    //this allows user to click on questions, check if they are correct 
+    //by calling another function, and creates the next question through another function
     answerChoices.addEventListener("click", function(event){
         checkAnswer(currentQuestion, event);
         currentQuestion++;
@@ -107,5 +157,6 @@ function checkAnswer(arrayIndex, event){
 //todo: list of highscores
 //todo: button to clear list of highscores or go back to beginning
 //todo: alerts when you get one right or wrong
+//todo: TODO ACTIVITY IS VERY HELPFUL
 
 //todo: comments, readME, make prettier
