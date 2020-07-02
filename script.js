@@ -50,10 +50,18 @@ var paragraph = document.querySelector("#intro");
 //if the user is correct, 20 points are added to their score.
 //if the user is incorrect, 10 seconds are taken away from the timer.
 function checkAnswer(arrayIndex, event) {
+  //if answer is right, +20 points
   if (event.target.textContent === questions[arrayIndex].correctAnswer) {
     userScore += 20;
-  } else {
+    //if answer is wrong AND there are at least 10 points left, subtract 10 seconds
+  } else if (
+    event.target.textContent != questions[arrayIndex].correctAnswer &&
+    secondsLeft > 9
+  ) {
     secondsLeft -= 10;
+    //if the answer is wrong and there are not at least 10 seconds left, end the quiz
+  } else {
+    endQuiz;
   }
 }
 
